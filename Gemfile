@@ -23,6 +23,11 @@ gem "jbuilder"
 
 gem "devise", "~> 4.9", ">= 4.9.4"
 
+gem "image_processing", ">= 1.2"
+
+gem "inline_svg", "~> 1.10"
+
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

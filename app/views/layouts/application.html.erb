@@ -17,7 +17,16 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
+  <body class="bg-slate-200">
+    <%#= debug params %>
+    <%= render_svg "icons/delete", styles: "w-10 h-10 fill-current text-red-600" %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <% if user_signed_in? %>
+      <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "underline" %>
+    <% else %>
+      <%= link_to "Log In", new_user_session_path, class: "underline" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
