@@ -1,42 +1,77 @@
-<%= form_with(model: submission) do |form| %>
-  <% if submission.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+<div data-controller="tabs">
+  <%= form_with(model: submission) do |form| %>
+    <% if submission.errors.any? %>
+      <div class="bg-red-50 text-red-800 p-6 rounded border border-red-300 mb-6">
+        <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+        <ul>
+          <% submission.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="mb-6 w-full lg:w-2/5">
+      <label for="#">Community</label>
+      <div class="relative">
+        <select class="select">
+          <option value="1">Community 1</option>
+          <option value="2">Community 2</option>
+          <option value="3">Community 3</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-5 right-1 flex items-center">
+          <%= render_svg "icons/chevron-down", styles: "fill-current w-3 h-3 text-gray-500" %>
+        </div>
+      </div>
+      <label for="submission_type">Submission Type</label>
+      <nav role="submission type" class="mb-6">
+        <ul class="divide-x grid grid-cols-3 gap-0 border rounded shadow-sm">
+          <li>
+            <a href="#" data-action="click->tabs#toggle" data-tabs-target="button" data-tab-id="text" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+              <%= render_svg "icons/text", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+              Text
+            </a>
+          </li>
+          <li>
+            <a href="#" data-action="click->tabs#toggle"  data-tabs-target="button" data-tab-id="image" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+              <%= render_svg "icons/link", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+              URL
+            </a>
+          </li>
+          <li>
+            <a href="#" data-action="click->tabs#toggle"  data-tabs-target="button" data-tab-id="media" class="p-4 flex items-center justify-center group hover:text-indigo-600">
+              <%= render_svg "icons/video", styles: "group-hover:text-indigo-600 text-gray-500 w-5 h-5 fill-current mr-2" %>
+              Image or Video
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="mb-6">
+        <%= form.label :title, class: "label" %>
+        <%= form.text_field :title, class: "input" %>
+      </div>
 
-      <ul>
-        <% submission.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <div data-tabs-target="text" class="tab-content mb-6">
+        <div class="mb-6">
+          <%= form.label :body, class: "label" %>
+          <%= form.text_area :body, class: "input min-h-[200px]" %>
+        </div>
+      </div>
+
+      <div data-tabs-target="url" class="tab-content hidden mb-6">
+        <%= form.label :url, class: "label" %>
+        <%= form.text_field :url, class: "input" %>
+      </div>
+
+      <div data-tabs-target="media" class="tab-content hidden mb-6">
+        <%= form.label :media, class: "label" do %>
+          <span class="mb-1 inline-block">Attach a video or image</span>
+          <%= form.file_field :media, class: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" %>
         <% end %>
-      </ul>
+      </div>
+      <div>
+        <%= form.submit class: "btn btn-indigo w-full" %>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.text_area :body %>
-  </div>
-
-  <div>
-    <%= form.label :url, style: "display: block" %>
-    <%= form.text_field :url %>
-  </div>
-
-  <div>
-    <%= form.label :media, style: "display: block" %>
-    <%= form.file_field :media %>
-  </div>
-
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

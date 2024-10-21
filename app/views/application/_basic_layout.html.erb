@@ -1,0 +1,12 @@
+<div class="flex flex-wrap">
+  <div class="w-full md:w-2/3 pr-8 md:pr-6 mb-6">
+    <div class="bg-white shadow rounded p-8">
+      <%= yield :primary_content %>
+    </div>
+  </div>
+  <div class="w-full md:w-1/3">
+    <div class="bg-white shadow px-8 pt-6 pb-8 rounded">
+      <%= yield :secondary_content %>
+    </div>
+  </div>
+</div>

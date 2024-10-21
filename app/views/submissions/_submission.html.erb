@@ -1,27 +1,42 @@
-<div id="<%= dom_id submission %>">
-  <p>
-    <strong>Title:</strong>
-    <%= submission.title %>
-  </p>
+<li id="<%= dom_id submission %>">
+  <div class="py-3 flex items-start flex-wrap">
+    
+    <% if submission.media.attached? %>
+      <div class="w-2/12">
+        <%= link_to submission do %>
+          <% if submission.media.video? %>
+            <%= video_tag submission.media %>
+          <% else %>
+            <%= image_tag submission.media.variant(resize_to_fit: [400, 400]), alt: submission.title, class: "rounded" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
 
-  <p>
-    <strong>Body:</strong>
-    <%= submission.body %>
-  </p>
-
-  <p>
-    <strong>Url:</strong>
-    <%= submission.url %>
-  </p>
-
-  <p>
-    <strong>Media:</strong>
-    <%= link_to submission.media.filename, submission.media if submission.media.attached? %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= submission.user_id %>
-  </p>
-
-</div>
+    <div class="flex-1 <%= "pl-4" if submission.media.attached? %>">
+      <h3 class="mb-1 flex flex-wrap font-semibold items-center text-xl hover:text-indigo-600">
+        <%= link_to submission.title, submission, class: "no-underline" %>
+        <% if submission.url? %>
+          <span class="pl-2 text-xs font-normal font-mono text-indigo-400 tracking-tighter">
+            <%= truncate(submission.url, length: 18) %>
+          </span>
+        <% end %>
+      </h3>
+      <% if submission.body? %>
+        <div class="text-sm text-gray-700">
+          <%= truncate(submission.body, length: 140) %>
+        </div>
+      <% end %>
+      <% if user_signed_in? && current_user.id == submission.user_id %>
+        <div class="pt-4 flex flex-wrap items-top">
+          <%= link_to edit_submission_path(submission), class: "no-underline mr-2" do %>
+            <%= render_svg "icons/edit", title: "Edit", styles: "fill-current text-gray-400 w-5 h-5 hover:text-indigo-600" %>
+          <% end %>
+          <%= button_to submission_path(submission), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this submission?"}, class: "no-underline mr-2" do %>
+            <%= render_svg "icons/delete", title: "Delete", styles: "fill-current text-gray-400 w-5 h-5 hover:text-indigo-600" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</li>

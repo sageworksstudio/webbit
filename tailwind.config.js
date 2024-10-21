@@ -3,14 +3,15 @@ module.exports = {
   content: [
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
+    './app/assets/stylesheets/**/*.css',
     "./app/views/**/*.erb",
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    "@tailwindcss/forms",
-    "@tailwindcss/typography",
+    // require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 }
 

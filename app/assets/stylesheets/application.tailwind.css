@@ -1,10 +1,11 @@
 /* Entry point for your PostCSS build */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+/* Custom Components */
+@import "./components/typography.css";
+@import "./components/buttons.css";
+@import "./components/forms.css";
 
-* {
-    font-family: 'Montserrat', sans-serif;
-}
+
+@import "tailwindcss/utilities";

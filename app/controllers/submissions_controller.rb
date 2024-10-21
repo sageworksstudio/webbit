@@ -22,7 +22,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions or /submissions.json
   def create
     @submission = Submission.new(submission_params)
-
+    @submission.user_id = current_user.id
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @submission, notice: "Submission was successfully created." }
@@ -65,6 +65,6 @@ class SubmissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def submission_params
-      params.require(:submission).permit(:title, :body, :url, :media, :user_id)
+      params.require(:submission).permit(:title, :body, :url, :media)
     end
 end

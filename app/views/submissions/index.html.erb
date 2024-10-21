@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Submissions" %>
-
-<h1>Submissions</h1>
-
-<div id="submissions">
-  <% @submissions.each do |submission| %>
-    <%= render submission %>
-    <p>
-      <%= link_to "Show this submission", submission %>
-    </p>
+<% content_for :primary_content do %>
+  <%#= debug @submissions %>
+  <% if @submissions.any? %>
+    <div id="submissions">
+      <ul class="divide-y list-none">
+        <% @submissions.each do |submission| %>
+          <%= render submission %>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div class="p-10 text-center">
+      <div class="flex justify-center mb-3">
+        <%= render_svg "icons/empty" %>
+      </div>
+      <p class="mb-4">Wow, such empty...</p>
+      <%= link_to "Create a new post", new_submission_path, class: "btn btn-indigo" %>
+    </div>
   <% end %>
-</div>
-
-<%= link_to "New submission", new_submission_path %>
+<% end %>
+<% content_for :secondary_content do %>
+  <%= link_to "New submission", new_submission_path, class: "btn btn-indigo w-full" %>
+<% end %>
+<%= render "basic_layout" %>
