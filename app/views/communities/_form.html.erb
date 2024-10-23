@@ -1,0 +1,37 @@
+<%= form_with(model: community) do |form| %>
+  <% if community.errors.any? %>
+    <div class="bg-red-50 text-red-800 p-6 rounded border border-red-300 mb-6">
+      <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+      <ul>
+        <% submission.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-6">
+    <%= form.label :name, class: "label" %>
+    <%= form.text_field :name, class: "input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :title, class: "label" %>
+    <%= form.text_field :title, class: "input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :description, class: "label" %>
+    <%= form.text_area :description, class: "input min-h-[200px]" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :sidebar, class: "label" %>
+    <%= form.text_area :sidebar, class: "input" %>
+  </div>
+
+
+  <div class="mb-6">
+    <%= form.submit class: "btn btn-indigo w-full" %>
+  </div>
+<% end %>

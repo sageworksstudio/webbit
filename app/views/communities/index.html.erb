@@ -1,0 +1,26 @@
+<% content_for :primary_content do %>
+
+  <% content_for :title, "Communities" %>
+
+  <h1>Communities</h1>
+
+  <div id="communities">
+    <% @communities.each do |community| %>
+      <%= render community %>
+      <p>
+        <%= link_to "Show this community", community %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "New community", new_community_path %>
+<% end %>
+<% content_for :secondary_content do %>
+  <div class="mb-6">
+    <%= link_to "New submission", new_submission_path, class: "btn btn-indigo block text-center" %>
+  </div>
+  <div>
+    <%= link_to "New community", new_community_path, class: "btn btn-white block text-center" %>
+  </div>
+<% end %>
+<%= render "basic_layout" %>

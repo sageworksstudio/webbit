@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_20_173213) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_161102) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_20_173213) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "communities", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.text "description"
+    t.text "sidebar"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_communities_on_name", unique: true
+    t.index ["user_id"], name: "index_communities_on_user_id"
+  end
+
   create_table "submissions", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -46,6 +58,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_20_173213) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "community_id", null: false
+    t.index ["community_id"], name: "index_submissions_on_community_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
@@ -65,5 +79,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_20_173213) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "communities", "users"
+  add_foreign_key "submissions", "communities"
   add_foreign_key "submissions", "users"
 end

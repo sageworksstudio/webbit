@@ -1,0 +1,12 @@
+<% content_for :community_label, "Create Community" %>
+
+<% content_for :primary_content do %>
+  <h1 class="text-3xl font-bold mb-6">New Community</h1>
+  <%= render "form", community: @community %>
+<% end %>
+
+<% content_for :secondary_content do %>
+  <%= link_to "Back to communities", communities_path %>
+<% end %>
+
+<%= render "basic_layout" %>

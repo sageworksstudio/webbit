@@ -55,3 +55,5 @@ if (process.argv.includes("--rebuild")) {
     minify: process.env.RAILS_ENV == "production",
   }).catch(() => process.exit(1));
 }
+
+console.log("Live reload server running on http://127.0.0.1:8082")

@@ -2,27 +2,37 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["button", "text", "url", "media"]
-  connect() {
-  }
 
   toggle(event) {
     event.preventDefault()
-    const content = document.getElementsByClassName('tab-content')
-    Array.from(content).forEach(el => {
-      el.classList.add('hidden')
-      console.log(el)
-      // if (el.classList.contains('hidden')) {
-      //   el.classList.remove('hidden')
-      // } else {
-      //   el.classList.add('hidden')
-      // }
-      // el.classList.remove('hidden')
-    })
-    event.target.classList.add('hidden')
+    const tab = event.target.dataset.tabId
+    this._showActiveTab(tab)
+    if (tab == "text") {
+      this.textTarget.classList.remove('hidden')
+      this.urlTarget.classList.add('hidden')
+      this.mediaTarget.classList.add('hidden')
+    } else if (tab == "url") {
+      this.textTarget.classList.add('hidden')
+      this.urlTarget.classList.remove('hidden')
+      this.mediaTarget.classList.add('hidden')
+    } else if (tab == "media") {
+      this.textTarget.classList.add('hidden')
+      this.urlTarget.classList.add('hidden')
+      this.mediaTarget.classList.remove('hidden')
+    } else {
+      this.textTarget.classList.remove('hidden')
+      this.urlTarget.classList.add('hidden')
+      this.mediaTarget.classList.add('hidden')
+    }
+  }
 
-    // console.log(content)
-    // if (event.target.dataset.tabId == "text") {
-    //   console.log(this.targets)
-    // }
+  _showActiveTab(tabId) {
+    this.buttonTargets.forEach(btn => {
+      if (tabId == btn.dataset.tabId) {
+        btn.classList.add('bg-indigo-50')
+      } else {
+        btn.classList.remove('bg-indigo-50')
+      }
+    })
   }
 }

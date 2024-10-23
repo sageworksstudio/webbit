@@ -19,6 +19,11 @@
   <% end %>
 <% end %>
 <% content_for :secondary_content do %>
-  <%= link_to "New submission", new_submission_path, class: "btn btn-indigo w-full" %>
+  <div class="mb-6">
+    <%= link_to "New submission", new_submission_path, class: "btn btn-indigo block text-center" %>
+  </div>
+  <div>
+    <%= link_to "New community", new_community_path, class: "btn btn-white block text-center" %>
+  </div>
 <% end %>
 <%= render "basic_layout" %>
