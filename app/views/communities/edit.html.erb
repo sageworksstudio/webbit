@@ -1,14 +1,14 @@
 <% content_for :community_label, "Edit Community" %>
 
 <% content_for :primary_content do %>
-  <h1 class="text-3xl font-bold mb-6">Editing Community</h1>
+  <h1 class="text-3xl font-bold mb-6">Editing: <span>w/</span><%= @community.name %></h1>
   <%= render "form", community: @community %>
 <% end %>
 <br>
 
 <% content_for :secondary_content do %>
-  <%= link_to "Show this community", @community %> |
-  <%= link_to "Back to communities", communities_path %>
+  <%= link_to "Show this community", @community, class: "btn btn-indigo text-center block mb-6" %>
+  <%= link_to "Back to communities", communities_path, class: "btn btn-white text-center block mb-6" %>
 <% end %>
 
 <%= render "basic_layout" %>
