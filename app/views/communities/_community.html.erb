@@ -1,27 +1,23 @@
-<div id="<%= dom_id community %>">
-  <p>
-    <strong>Name:</strong>
-    <%= community.name %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= community.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= community.description %>
-  </p>
-
-  <p>
-    <strong>Sidebar:</strong>
-    <%= community.sidebar %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= community.user_id %>
-  </p>
-
-</div>
+<li id="<%= dom_id community %>" class="py-3">
+  <p class="text-sm text-gray-600">w/<%= community.name %></p>
+  <%= link_to community do %>
+    <h3 class="font-semibold hover:text-indigo-700"><%= community.title %></h3>
+  <% end %>
+  <div class="prose prose-indigo mb-4">
+    <%= truncate(community.description, length: 140) %>
+  </div>
+  <p class="text-xs text-gray-500">Last updated <%= community.updated_at.to_formatted_s(:nice) %></p>
+  <% if author_of?(community) %>
+    <div class="mt-6 flex items-center space-x-3">
+      <%= link_to edit_community_path(community), class: "btn btn-white inline-flex items-center text-gray-600 text-sm" do %>
+        <%= render_svg "icons/edit", styles: "w-4 h-4 fill-current text-gray-500 mr-2" %>
+        Edit
+      <% end %>
+      
+      <%= button_to community_path(community), method: :delete, data: {turbo_confirm: "Are you sure you want to delete this community?"}, class: "btn btn-white inline-flex items-center text-gray-600 text-sm group hover:text-red-600" do %>
+        <%= render_svg "icons/delete", styles: "w-4 h-4 fill-current text-gray-500 mr-2 group-hover:text-red-600" %>
+        Delete
+      <% end %>
+    </div>
+  <% end %>
+</li>

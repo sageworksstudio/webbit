@@ -1,10 +1,12 @@
+Resolving dependencies...
+Resolving dependencies...
 <% content_for :community_label, "w/#{@community.name}" %>
-
-<%= render @community %>
-
-<div>
-  <%= link_to "Edit this community", edit_community_path(@community) %> |
-  <%= link_to "Back to communities", communities_path %>
-
-  <%= button_to "Destroy this community", @community, method: :delete %>
-</div>
+<% content_for :primary_content do %>
+  <% @community.submissions.each do |submission| %>
+    <%= render "submissions/submission", submission: submission %>
+  <% end %>
+<% end %>
+<% content_for :secondary_content do %>
+  <%= render "sidebar", community: @community %>
+<% end %>
+<%= render "basic_layout" %>

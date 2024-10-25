@@ -1,26 +1,27 @@
+<% content_for :community_label, "All Communities" %>
+
 <% content_for :primary_content do %>
-
-  <% content_for :title, "Communities" %>
-
-  <h1>Communities</h1>
-
-  <div id="communities">
-    <% @communities.each do |community| %>
-      <%= render community %>
-      <p>
-        <%= link_to "Show this community", community %>
-      </p>
-    <% end %>
-  </div>
-
-  <%= link_to "New community", new_community_path %>
+  <% if @communities.any? %>
+    <h1 class="text-3xl font-bold mb-6">Communities</h1>
+    <ul id="communities" class="divide-y">
+      <% @communities.each do |community| %>
+        <%= render community %>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="p-10 text-center">
+      <div class="flex justify-center mb-3">
+        <%= render_svg "icons/empty" %>
+      </div>
+      <p class="mb-4">Wow, such empty...</p>
+      <%= link_to "Create a new community", new_community_path, class: "btn btn-indigo" %>
+    </div>
+  <% end %>
 <% end %>
+
 <% content_for :secondary_content do %>
-  <div class="mb-6">
-    <%= link_to "New submission", new_submission_path, class: "btn btn-indigo block text-center" %>
-  </div>
-  <div>
-    <%= link_to "New community", new_community_path, class: "btn btn-white block text-center" %>
-  </div>
+  <%= link_to "+ New community", new_community_path, class: "btn btn-indigo block" %>
 <% end %>
+
+
 <%= render "basic_layout" %>

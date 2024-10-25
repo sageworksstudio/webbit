@@ -1,12 +1,18 @@
 <% content_for :community_label, "Create Community" %>
-
 <% content_for :primary_content do %>
-  <h1 class="text-3xl font-bold mb-6">New Community</h1>
+  <h1 class="text-3xl font-bold mb-6">Create a Community</h1>
   <%= render "form", community: @community %>
 <% end %>
-
 <% content_for :secondary_content do %>
-  <%= link_to "Back to communities", communities_path, class: "btn btn-white text-center block mb-6" %>
+  <div class="p-6">
+    <%= render_svg "community", styles: "max-w-full h-auto mb-4" %>
+    <h3>Create a new community on Webbit</h3>
+    <p class="text-sm italic">Each community requires the following</p>
+    <ul class="mt-4 list-disc pl-6 leading-loose">
+      <li>Name</li>
+      <li>Title</li>
+      <li>Description</li>
+    </ul>
+  </div>
 <% end %>
-
 <%= render "basic_layout" %>
