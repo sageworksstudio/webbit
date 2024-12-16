@@ -1,0 +1,47 @@
+<% content_for :primary_content do %>
+  <h1 class="font-bold text-3xl pb-6 border-b mb-6"><%= @profile.username %></h1>
+  <div class="flex items-center">
+    <%= render_svg "icons/user", styles: "w-5 h-5 text-indigo-600 fill-current flex-shrink-0 mr-2" %>
+    <h3 class="font-light mb-3 text-xl mt-2">Submissions</h3>
+  </div>
+  <ul class="divide-y">
+    <% @submissions.each do |submission| %>
+      <%= render "submissions/submission", submission: submission %>
+    <% end %>
+  </ul>
+  <div class="flex items-center">
+    <%= render_svg "icons/conversation", styles: "w-5 h-5 text-indigo-600 fill-current flex-shrink-0 mr-2" %>
+    <h3 class="font-light mb-3 text-xl mt-2">Comments</h3>
+  </div>
+
+  <ul class="divide-y">
+    <% @comments.each do |comment| %>
+      <p class="text-sm font-semibold"><%= comment.submission.title %></p>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+  </ul>
+
+<% end %>
+
+<% content_for :secondary_content do %>
+  <div class="text-center">
+    <div class="flex items-center justify-center">
+      <%= gravatar_for(@profile, class: "rounded-full w-20 h-20") %>
+    </div>
+    <p class="font-bold"><%= @profile.username %></p>
+    <p class="text-xs">Joined <%= @profile.created_at.to_formatted_s(:nice) %></p>
+    <div class="mt-6">
+      <% if user_signed_in? %>
+        <%= link_to "New Submission", new_submission_path, class: "btn btn-indigo w-full block" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-outline w-full block" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-indigo w-full block mt-6" %>
+      <% end %>
+    </div>
+  </div>
+
+
+  
+<% end %>
+
+<%= render "basic_layout" %>

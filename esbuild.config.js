@@ -11,10 +11,10 @@ const watchDirectories = [
   "./app/assets/stylesheets/*.css",
 ]
 const config = {
-  absWorkingDir: path.join(process.cwd(), "./app/javascript"),
+  absWorkingDir: path.join(process.cwd(), "app/javascript"),
   bundle: true,
   entryPoints: entryPoints,
-  outdir: path.join(process.cwd(), "./app/assets/builds"),
+  outdir: path.join(process.cwd(), "app/assets/builds"),
   sourcemap: true
 }
 async function rebuild() {

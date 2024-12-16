@@ -1,11 +1,15 @@
-Resolving dependencies...
-Resolving dependencies...
 <% content_for :community_label, "w/#{@community.name}" %>
+
+<%= render "header", community: @community %>
+
 <% content_for :primary_content do %>
-  <% @community.submissions.each do |submission| %>
-    <%= render "submissions/submission", submission: submission %>
-  <% end %>
+  <ul class="list-none">
+    <% @community.submissions.each do |submission| %>
+      <%= render "submissions/submission", submission: submission %>
+    <% end %>
+  </ul>
 <% end %>
+
 <% content_for :secondary_content do %>
   <%= render "sidebar", community: @community %>
 <% end %>

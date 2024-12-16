@@ -1,12 +1,66 @@
-<p style="color: green"><%= notice %></p>
-<ul class="divide-y list-none">
-  <%= render @submission %>
-</ul>
+<% content_for :community_label, "w/#{@submission.community.name}" %>
+<%= render "communities/header", community: @submission.community %>
+<% content_for :primary_content do %>
+  <div class="flex flex-row justify-between">
+    <div class="w-10 flex flex-col items-start">
+      <%= link_to "#", class: "block text-center" do %>
+        <%= render_svg "icons/up-vote", styles: "fill-current text-gray-500 w-4 h-4" %>
+      <% end %>
+      <span class="text-gray-700 text-center block text-sm -ml-[2px]">123</span>
+      <%= link_to "#", class: "block text-center" do %>
+        <%= render_svg "icons/down-vote", styles: "fill-current text-gray-500 w-4 h-4" %>
+      <% end %>
+    </div>
+    <div class="flex-1">
+      <p class="text-sm text-gray-600 mb-3">Posted by <%= link_to @submission.user.username, profile_path(@submission.user), class: "underline" %> <%= time_ago_in_words(@submission.created_at)%> ago</p>
+      <% if @submission.updated_at > @submission.created_at %>
+        <p class="text-sm text-gray-600 mb-3">Updated <%= time_ago_in_words(@submission.updated_at)%> ago</p>
+      <% end %>
+      <h1 class="font-bold text-3xl mb-6"><%= @submission.title %></h1>
+      <div class="prose prose-lg prose-indigo">
+        <%= simple_format @submission.body %>
+      </div>
+      <%# Submissions data %>
+      <div class="flex items-center space-x-5 mt-6">
+        <div class="flex items-center space-x-3">
+          <%= render_svg "icons/conversation", styles: "fill-current text-gray-500 w-5 h-5" %>
+          <p id="<%= dom_id(@submission) %>_comment_count"><%= pluralize(@submission.comments.count, "comment") %></p>
+        </div>
+        <% if author_of?(@submission) %>
+          <%= link_to edit_submission_path(@submission), class: "group" do %>
+            <span class="sr-only">Edit this submission</span>
+            <%= render_svg "icons/edit", styles: "fill-current text-gray-500 w-5 h-5 group-hover:text-indigo-600" %>
+          <% end %>
+          <%= button_to @submission, method: :delete, class: "group" do %>
+            <span class="sr-only">Edit this submission</span>
+            <%= render_svg "icons/delete", styles: "fill-current text-gray-500 w-5 h-5 mt-1 group-hover:text-indigo-600" %>
+          <% end %>
+        <% end %>
+      </div>
 
 
-<div>
-  <%= link_to "Edit this submission", edit_submission_path(@submission) %> |
-  <%= link_to "Back to submissions", submissions_path %>
+      <div class="mt-6 border-t border-gray-300">
+        <% if user_signed_in?  %>
+          <div id="<%= dom_id(@submission) %>_comments_form">
+            <%= render "comments/form", comment: Comment.new %>
+          </div>
+        <% else %>
+          <div class="bg-gray-50 rounded p-4 mt-6 text-center">
+            <%= link_to "Login to reply", new_user_session_path, class: "text-indigo-600 underline" %>
+          </div>
+        <% end %>
 
-  <%= button_to "Destroy this submission", @submission, method: :delete %>
-</div>
+        <h3 id="comment-section" class="font-bold mt-6">Comments</h3>
+          <div id="<%= dom_id(@submission)%>_comments" class="mt-6 border-t border-gray-300">
+            <% if @submission.comments.any? %>
+              <%= render @submission.comments %>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% content_for :secondary_content do %>
+  <%= render "communities/sidebar", community: @submission.community %>
+<% end %>
+<%= render "basic_layout" %>

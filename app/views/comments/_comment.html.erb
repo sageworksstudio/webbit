@@ -1,0 +1,14 @@
+<%= turbo_frame_tag comment do %>
+  <div class="border p-4 rounded my-4">
+    <p class="font-semibold"><%= comment.user.username %></p>
+    <div class="prose prose-indigo">
+      <%= comment.reply %>
+    </div>
+    <% if user_signed_in? %>
+      <div class="flex items-end space-x-3">
+        <%= link_to "Edit", edit_submission_comment_path(comment.submission, comment), class: "text-indigo-600 underline" %>
+        <%= button_to "Delete", submission_comment_path(comment.submission, comment), method: :delete, class: "text-indigo-600 underline" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,9 +1,8 @@
 <% content_for :community_label, "All Communities" %>
-
 <% content_for :primary_content do %>
   <% if @communities.any? %>
     <h1 class="text-3xl font-bold mb-6">Communities</h1>
-    <ul id="communities" class="divide-y">
+    <ul id="communities" class="divide-y list-none">
       <% @communities.each do |community| %>
         <%= render community %>
       <% end %>
@@ -18,10 +17,7 @@
     </div>
   <% end %>
 <% end %>
-
 <% content_for :secondary_content do %>
   <%= link_to "+ New community", new_community_path, class: "btn btn-indigo block" %>
 <% end %>
-
-
 <%= render "basic_layout" %>
