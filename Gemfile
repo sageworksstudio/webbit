@@ -12,7 +12,7 @@ gem "propshaft", "~> 1.1"
 gem "sqlite3", ">= 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.5"
+gem "puma", "~> 6.6"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails", "~> 1.3"
